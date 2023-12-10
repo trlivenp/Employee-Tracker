@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
-const Queries = require('./viewQueries');
+const addQueries = require('./addQueries');
+const viewQueries = require('./viewQueries');
 // You'll need a database connection here (e.g., using SQLite, MySQL, or any other database of your choice)
 
 // Function to display main menu
@@ -23,7 +24,7 @@ async function mainMenu() {
     switch (choice) {
         case 'View all departments':
             try {
-                const departments = await Queries.viewDepartments();
+                const departments = await viewQueries.viewDepartments();
                 console.table(departments);
             } catch (error) {
                 console.error('Error fetching departments:', error);
@@ -32,7 +33,7 @@ async function mainMenu() {
 
         case 'View all roles':
             try {
-                const roles = await Queries.viewRoles();
+                const roles = await viewQueries.viewRoles();
                 console.table(roles);
             } catch (error) {
                 console.error('Error fetching roles:', error);
@@ -41,7 +42,7 @@ async function mainMenu() {
 
         case 'View all employees':
             try {
-                const employee = await Queries.viewEmployees();
+                const employee = await viewQueries.viewEmployees();
                 console.table(employee);
             } catch (error) {
                 console.error('Error fetching employees:', error);
@@ -56,7 +57,7 @@ async function mainMenu() {
                     message: 'Enter the name of the department:',
                 });
 
-                await Queries.addDepartment(departmentName);
+                await addQueries.addDepartment(departmentName);
                 console.log('Department added successfully!');
             } catch (error) {
                 console.error('Error adding department:', error);
@@ -71,7 +72,7 @@ async function mainMenu() {
                     { type: 'input', name: 'departmentId', message: 'Enter the department ID for the role:' },
                 ]);
 
-                await Queries.addRole(title, salary, departmentId);
+                await addQueries.addRole(title, salary, departmentId);
                 console.log('Role added successfully!');
             } catch (error) {
                 console.error('Error adding role:', error);
@@ -88,7 +89,7 @@ async function mainMenu() {
                     { type: 'input', name: 'managerId', message: 'Enter the manager ID for the employee (if any):' },
                 ]);
 
-                await Queries.addEmployee(firstName, lastName, roleId, managerId);
+                await addQueries.addEmployee(firstName, lastName, roleId, managerId);
                 console.log('Employee added successfully!');
             } catch (error) {
                 console.error('Error adding employee:', error);
@@ -97,7 +98,7 @@ async function mainMenu() {
 
         case 'Update an employee role':
             try {
-                const employees = await Queries.viewEmployees(); // Implement viewEmployees function to fetch employee data
+                const employees = await viewQueries.viewEmployees(); // Implement viewEmployees function to fetch employee data
                 const employeeChoices = employees.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.id }));
 
                 const { employeeId, newRoleId } = await inquirer.prompt([
@@ -105,7 +106,7 @@ async function mainMenu() {
                     { type: 'input', name: 'newRoleId', message: 'Enter the new role ID for the employee:' },
                 ]);
 
-                await Queries.updateEmployeeRole(employeeId, newRoleId);
+                await addQueries.updateEmployeeRole(employeeId, newRoleId);
                 console.log('Employee role updated successfully!');
             } catch (error) {
                 console.error('Error updating employee role:', error);
@@ -120,26 +121,8 @@ async function mainMenu() {
             console.log('Invalid choice');
     }
 
-    // Call mainMenu recursively to keep the application running
+    // Calling mainMenu recursively to keep the application running
     mainMenu();
-}
-// Example viewDepartments function
-async function viewDepartments() {
-    // Fetch department data from the database
-    // Display formatted table
-}
+};
 
-// Example addDepartment function
-async function addDepartment() {
-    const { departmentName } = await inquirer.prompt({
-        type: 'input',
-        name: 'departmentName',
-        message: 'Enter the name of the department:',
-    });
-
-    // Insert new department into the database
-}
-
-
-// Implement the main application logic here
 mainMenu();

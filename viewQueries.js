@@ -1,5 +1,6 @@
 const connection = require('./db');
 
+// Queries for viewing departments, roles, and employees
 class ViewQueries {
     static viewDepartments() {
         const query = 'SELECT * FROM department';

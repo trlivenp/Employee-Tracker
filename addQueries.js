@@ -1,5 +1,6 @@
 const connection = require('./db');
 
+// Queries for adding departments, roles, employees, and updating employee roles
 class AddQueries {
     static addDepartment(departmentName) {
         const query = 'INSERT INTO department (name) VALUES (?)';
