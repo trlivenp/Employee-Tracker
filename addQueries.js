@@ -1,15 +1,6 @@
 const connection = require('./db');
 
-class Queries {
-    static viewDepartments() {
-        const query = 'SELECT * FROM department';
-        return new Promise((resolve, reject) => {
-            connection.query(query, (err, result) => {
-                if (err) reject(err);
-                resolve(result);
-            });
-        });
-    }
+class AddQueries {
     static addDepartment(departmentName) {
         const query = 'INSERT INTO department (name) VALUES (?)';
         return new Promise((resolve, reject) => {
@@ -49,4 +40,4 @@ class Queries {
 
 }
 
-module.exports = Queries;
+module.exports = AddQueries;

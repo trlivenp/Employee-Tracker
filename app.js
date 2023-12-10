@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const Queries = require('./queries');
+const Queries = require('./viewQueries');
 // You'll need a database connection here (e.g., using SQLite, MySQL, or any other database of your choice)
 
 // Function to display main menu
