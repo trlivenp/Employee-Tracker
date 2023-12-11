@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS employee_tracker_db;
-CREATE DATABASE employee_tracker_db;
+DROP DATABASE IF EXISTS employee_tracker;
+CREATE DATABASE employee_tracker;
 
 INSERT INTO department (id, name) VALUES
   (1, 'Department1'),
